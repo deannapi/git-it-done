@@ -22,13 +22,14 @@ var getUserRepos = function(user) {
         // Notice this `.catch()` getting chained onto the end of the `.then()` method
         alert("Unable to connect to GitHub");
     });
+}
 
 // Create variables to catpure the submit button username entry
 var userFormEl = document.querySelector("#user-form");
 var nameInputEl = document.querySelector("#username");
 //create function
 // get value of the form input
-var formSumbitHandler = function(event) {
+var formSubmitHandler = function(event) {
     event.preventDefault();
     // get value from input element
     var username = nameInputEl.value.trim();
@@ -43,7 +44,7 @@ var formSumbitHandler = function(event) {
 };
 // call function in event listener
 
-userFormEl.addEventListener("submit", formSumbitHandler);
+userFormEl.addEventListener("submit", formSubmitHandler);
 
 //DISPLAY RESPONSE DATA ON PAGE
 // function to display repos
@@ -52,7 +53,7 @@ var displayRepos = function(repos, searchTerm) {
     if (repos.length === 0) {
     repoContainerEl.textContent = "No repositories found.";
     return;
-  }
+    }
     console.log(repos);
     console.log(searchTerm);
     //clear old content
@@ -60,13 +61,15 @@ var displayRepos = function(repos, searchTerm) {
     repoSearchTerm.textContent = searchTerm;
 
     // loop over repos
+    // loop over repos
     for (var i = 0; i < repos.length; i++) {
         // format repo name
         var repoName = repos[i].owner.login + "/" + repos[i].name;
     
-        // create a container for each repo
-        var repoEl = document.createElement("div");
+        // create a link for each repo
+        var repoEl = document.createElement("a");
         repoEl.classList = "list-item flex-row justify-space-between align-center";
+        repoEl.setAttribute("href", "./single-repo.html?repo=" + repoName);
     
         // create a span element to hold repository name
         var titleEl = document.createElement("span");
